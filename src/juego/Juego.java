@@ -1,5 +1,7 @@
 package juego;
 
+import java.awt.Color;
+import java.awt.Font;
 import java.awt.Frame;
 import java.awt.Graphics;
 import java.awt.event.MouseEvent;
@@ -17,6 +19,7 @@ public class Juego extends Frame implements WindowListener, MouseListener
 	int pulX, pulY;
 	// Las vidas
 	int vidas;
+	int puntos = 0;
 	Random rnd = new Random();
 	public Juego()
 	{
@@ -26,17 +29,27 @@ public class Juego extends Frame implements WindowListener, MouseListener
 		setTitle("Moviendo...");
 		addWindowListener(this);
 		addMouseListener(this);
-		setSize(220,220);
+		setSize(400,400);
 		setVisible(true);
+		setLocationRelativeTo(null);
+
 	}
 	public void obtenerPosicion()
 	{
 		// Obtenemos los valores teniendo en cuenta los límites del escenario
-		posX=rnd.nextInt(186)+8;
-		posY=rnd.nextInt(160)+32;
+		posX=rnd.nextInt(380);
+		posY=rnd.nextInt(380);
 	}
 	public void paint(Graphics g)
 	{
+		Font font = new Font("Arial", Font.BOLD, 14);
+		Color color = new Color(234,23,43);
+
+		// Se dibuja "Hola, mundo!" a partir de la posición 30,60
+		g.setFont(font);
+		g.setColor(color);
+		g.drawString("Puntuación: " + puntos, 30, 60);
+
 		g.drawRect(posX, posY, 20, 20);
 	}
 	public void windowActivated(WindowEvent we) {}
@@ -66,6 +79,7 @@ public class Juego extends Frame implements WindowListener, MouseListener
 			obtenerPosicion();
 			// Y lo dibujamos
 			repaint();
+			puntos ++;
 		}
 		else
 		{
@@ -77,6 +91,7 @@ public class Juego extends Frame implements WindowListener, MouseListener
 				this.removeMouseListener(this);
 			}
 
+
 			else
 			{
 				System.out.println("Has perdido una vida. Te quedan "+vidas+ " vidas.");
@@ -84,24 +99,8 @@ public class Juego extends Frame implements WindowListener, MouseListener
 		}
 	}
 
-	@Override
-	public void mousePressed(MouseEvent me) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void mouseReleased(MouseEvent me) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void mouseEntered(MouseEvent me) {
-		// TODO Auto-generated method stub
-
-	}
-	@Override
-	public void mouseExited(MouseEvent me) {
-		// TODO Auto-generated method stub
-
-	}
+	public void mouseEntered(MouseEvent me) {}
+	public void mouseExited(MouseEvent me) {}
+	public void mousePressed(MouseEvent me) {}
+	public void mouseReleased(MouseEvent me) {}
 }
