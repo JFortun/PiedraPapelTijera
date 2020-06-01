@@ -1,6 +1,6 @@
 package juego;
 
-import java.awt.Frame;
+import java.awt.Button;
 import java.awt.TextArea;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -14,15 +14,20 @@ public class Vista extends JFrame
 	
 	// Creo los frames
 	static JFrame menu = new JFrame("Menú");
-	static Frame juego = new Frame("Juego");
-	static JFrame jlasificacion = new JFrame("Clasificación");
+	static JFrame clasificacion = new JFrame("Clasificación");
 
 	// Creo los elementos de la ventana del menú
-	static JButton btnJugar = new JButton("Jugar");
-	static JButton btnTOP = new JButton("TOP Jugadores");
-	static JButton btnAyuda = new JButton("Ayuda");
+	static JButton btnMenuJugar = new JButton("Jugar");
+	static JButton btnMenuTOP = new JButton("TOP Jugadores");
+	static JButton btnMenuAyuda = new JButton("Ayuda");
 	
-	// Creo los elementos de la ventana de login
+	// Creo los elementos de la ventana del juego
+	static Button btnPiedra = new Button("Piedra");
+	static Button btnPapel = new Button("Papel");
+	static Button btnTijera = new Button("Tijera");
+	static Button btnJugar = new Button("Jugar");
+
+	// Creo los elementos de la ventana jugador
 	static JDialog jugador = new JDialog(menu,"Jugador", true);
 	static JLabel lblJugador = new JLabel("Jugador:");
 	static JTextField txtJugador = new JTextField(20); 
@@ -30,7 +35,6 @@ public class Vista extends JFrame
 	static JButton btnJugadorVolver = new JButton("Volver");
 	
 	// Creo los elementos de la ventana de la clasificación
-	static JFrame clasificacion = new JFrame("Clasificación");
 	static JLabel lblclasificacion = new JLabel("Ésta es la clasificación de jugadores");
 	static TextArea taClasificacion = new TextArea(25,30);
 	static JButton btnClasificacionVolver = new JButton("Volver");
