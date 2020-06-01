@@ -14,6 +14,7 @@ import java.awt.event.WindowListener;
 public class Juego extends Frame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1L;
+		
 	// Se crea un color tipo RGB
 	Color colorTitulo = new Color(0,128,255);
 	Color colorBoton = new Color(153,204,255);
@@ -25,7 +26,7 @@ public class Juego extends Frame implements ActionListener, WindowListener
 
 	// Declarar el objeto Toolkit  para manejo de imágenes
 	Toolkit herramienta;
-	
+
 	Juego()
 	{
 		setLayout(null);
@@ -35,9 +36,12 @@ public class Juego extends Frame implements ActionListener, WindowListener
 		setLocationRelativeTo(null);
 		setBackground(colorFondo);
 		addWindowListener(this);
+		
 		Vista.btnPiedra.addActionListener(this);
 		Vista.btnPapel.addActionListener(this);
 		Vista.btnTijera.addActionListener(this);
+		Vista.btnJugar.addActionListener(this);
+		
 		add(Vista.btnPiedra);
 		Vista.btnPiedra.setBounds(25,715,60,50);
 		Vista.btnPiedra.setBackground(colorBoton);
@@ -50,6 +54,7 @@ public class Juego extends Frame implements ActionListener, WindowListener
 		add(Vista.btnJugar);
 		Vista.btnJugar.setBounds(425,580,80,50);
 		Vista.btnJugar.setBackground(colorBoton);
+
 		// Establecer el método de trabajo con imágenes
 		herramienta = getToolkit();
 		// Especificar la ruta de la imagen
@@ -78,11 +83,12 @@ public class Juego extends Frame implements ActionListener, WindowListener
 		
 	}
 	
-	public void windowClosing(WindowEvent e) 
+	public void windowClosing(WindowEvent e)
 	{
 		if(isActive())
 		{
 			setVisible(false);
+			Vista.informacion.setVisible(false);
 			Vista.menu.setVisible(true);
 		}
 	}
