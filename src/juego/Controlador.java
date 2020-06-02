@@ -23,7 +23,7 @@ public class Controlador extends JFrame implements ActionListener, WindowListene
 	{
 		Vista.menu.setLayout(new FlowLayout());
 		Vista.menu.setTitle("Piedra, Papel o Tijeras");
-		Vista.menu.setSize(500,300);
+		Vista.menu.setSize(500,180);
 		Vista.menu.setResizable(false);
 		Vista.menu.setLocationRelativeTo(null);
 		Vista.menu.add(Vista.btnMenuJugar);
@@ -65,7 +65,7 @@ public class Controlador extends JFrame implements ActionListener, WindowListene
 		// Clasificacion de jugadores
 		else if(evento.getSource().equals(Vista.btnMenuTOP)) 
 		{
-			new Puntuacion();
+			new Clasificacion();
 			Vista.menu.setVisible(false);
 
 		}

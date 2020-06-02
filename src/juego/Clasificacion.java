@@ -9,18 +9,17 @@ import java.awt.event.WindowListener;
 import java.sql.SQLException;
 import javax.swing.JFrame;
 
-public class Puntuacion extends JFrame implements ActionListener, WindowListener
+public class Clasificacion extends JFrame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1L;
 	Color color = new Color(204, 230, 255);
-
 	
 	public static void altaUsuario(String nombreUsuario)
 	{
 		
 	}
 	
-	Puntuacion()
+	Clasificacion()
 	{
 		Vista.clasificacion.setLayout(new FlowLayout());
 		Vista.clasificacion.setTitle("Clasificación");
@@ -54,7 +53,8 @@ public class Puntuacion extends JFrame implements ActionListener, WindowListener
 				{
 					Vista.taClasificacion.setText(Vista.taClasificacion.getText() + "\n" +
 							Modelo.rs.getString("nombreUsuario")+
-							" --- "+Modelo.rs.getInt("puntuacionUsuario"));
+							" --- "+Modelo.rs.getInt("puntuacionUsuario")+
+							" Puntos");
 				}
 			}
 		}

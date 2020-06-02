@@ -26,17 +26,20 @@ public class Vista extends JFrame
 	static JButton btnMenuAyuda = new JButton("Ayuda");
 	
 	// Creo los elementos de la ventana del juego
-	static Button btnPiedra = new Button("Piedra");
-	static Button btnPapel = new Button("Papel");
-	static Button btnTijera = new Button("Tijera");
-	static Button btnJugar = new Button("Jugar");
+	static Button btnPiedra = new Button("PIEDRA");
+	static Button btnPapel = new Button("PAPEL");
+	static Button btnTijera = new Button("TIJERA");
+	static Button btnJugar = new Button("JUGAR");
+	static Label lblEleccionContrincanteEnunciado = new Label("TU CONTRINCANTE HA ELEGIDO");
+	static Label lblEleccionContrincante = new Label("ELEMENTO");
+	static Label lblResultado = new Label("RESULTADO");
+
 
 	// Creo los elementos de la ventana jugador
 	static JDialog nombreJugador = new JDialog(menu,"Jugador", true);
 	static JLabel lblNombreJugador = new JLabel("Jugador:");
 	static JButton btnNombreJugadorAceptar = new JButton("Aceptar");
 	static JButton btnNombreJugadorVolver = new JButton("Volver");
-	static TextField txtJugador = new TextField(20);
 
 	
 	// Creo los elementos de la ventana información
