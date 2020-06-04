@@ -7,15 +7,14 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
-import java.sql.SQLException;
 
 import javax.swing.JFrame;
 
 public class Controlador extends JFrame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1L;
-	
-	
+
+
 	Color color = new Color(204, 230, 255);
 	Juego juego = new Juego();
 
@@ -46,8 +45,9 @@ public class Controlador extends JFrame implements ActionListener, WindowListene
 		// Juego
 		if(evento.getSource().equals(Vista.btnMenuJugar)) 
 		{
+			new Sonido("jugar");
 			Vista.txtNombreJugador.setText("");
-			
+			Vista.nombreJugador.getContentPane().setBackground(color);
 			Vista.nombreJugador.setLayout(new FlowLayout());
 			Vista.nombreJugador.setSize(315, 100);
 			Vista.nombreJugador.setResizable(false);
@@ -60,11 +60,11 @@ public class Controlador extends JFrame implements ActionListener, WindowListene
 			Vista.nombreJugador.add(Vista.btnNombreJugadorVolver);
 			Vista.nombreJugador.setLocationRelativeTo(null);
 			Vista.nombreJugador.setVisible(true);
-			Vista.nombreJugador.getContentPane().setBackground(color);
 		}
 		// Clasificacion de jugadores
 		else if(evento.getSource().equals(Vista.btnMenuTOP)) 
 		{
+			new Sonido("boton");
 			new Clasificacion();
 			Vista.menu.setVisible(false);
 
@@ -72,50 +72,26 @@ public class Controlador extends JFrame implements ActionListener, WindowListene
 		// Botón aceptar de Jugador
 		else if(evento.getSource().equals(Vista.btnNombreJugadorAceptar)) 
 		{
+			new Sonido("boton");
 			if(!Vista.txtNombreJugador.getText().equals(""))
 			{
 				juego.setVisible(true);
 				new Informacion();
 				Vista.nombreJugador.setVisible(false);
 				Vista.menu.setVisible(false);
-				
-				try
-				{
-					Modelo.ConexionBD();
-					Modelo.sentencia = "INSERT INTO usuarios (nombreUsuario,puntuacionUsuario) VALUES ('"+Vista.txtNombreJugador.getText()+"',"+0+")";
-					Modelo.statement.executeUpdate(Modelo.sentencia);
-				}
-
-				catch (SQLException sqle)
-				{
-					System.out.println("Error 2-"+sqle.getMessage());
-				}
-
-				finally
-				{
-					try
-					{
-						if(Modelo.connection!=null)
-						{
-							Modelo.connection.close();
-						}
-					}
-					catch (SQLException e)
-					{
-						System.out.println("Error 3-"+e.getMessage());
-					}
-				}
 			}
 		}
 		// Botón volver de Jugador
 		else if(evento.getSource().equals(Vista.btnNombreJugadorVolver)) 
 		{
+			new Sonido("boton");
 			Vista.nombreJugador.setVisible(false);
 			Vista.menu.setVisible(true);
 		}
 		// Botón Ayuda
 		else if(evento.getSource().equals(Vista.btnMenuAyuda)) 
 		{
+			new Sonido("boton");
 			new Ayuda();
 		}
 	}

@@ -10,6 +10,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowEvent;
 import java.awt.event.WindowListener;
+import java.sql.SQLException;
 
 public class Juego extends Frame implements ActionListener, WindowListener
 {
@@ -17,11 +18,19 @@ public class Juego extends Frame implements ActionListener, WindowListener
 
 	Font fuenteTitulo = new Font("Time News Roman", Font.BOLD, 35);
 	Font fuenteTexto = new Font("Time News Roman", Font.BOLD, 25);
+	Font fuenteNombres = new Font("Time News Roman", Font.BOLD, 15);
+	Font fuenteResultado = new Font("Time News Roman", Font.BOLD, 20);
+	Font fuenteVersus = new Font("Time News Roman", Font.BOLD, 50);
+
+	int puntuacion;
+	int ronda;
+	boolean jugando = false;
 
 	// Se crea un color tipo RGB
-	Color colorTitulo = new Color(0,128,255);
-	Color colorBoton = new Color(153,204,255);
-	Color colorFondo = new Color(204,229,255);
+	Color azulMarino = new Color(0,128,255);
+	Color azul = new Color(153,204,255);
+	Color celeste = new Color(204,229,255);
+	Color rojo = new Color(255,51,51);
 	// Declarar el objeto Image
 	Image piedra;
 	Image papel;
@@ -36,26 +45,33 @@ public class Juego extends Frame implements ActionListener, WindowListener
 		setSize(600,800);
 		setResizable(false);
 		setLocationRelativeTo(null);
-		setBackground(colorFondo);
+		setBackground(celeste);
 		addWindowListener(this);
 
 		Vista.btnPiedra.addActionListener(this);
 		Vista.btnPapel.addActionListener(this);
 		Vista.btnTijera.addActionListener(this);
 		Vista.btnJugar.addActionListener(this);
+		Vista.btnRetirarse.addActionListener(this);
 
 		add(Vista.btnPiedra);
 		Vista.btnPiedra.setBounds(25,715,60,50);
-		Vista.btnPiedra.setBackground(colorBoton);
+		Vista.btnPiedra.setBackground(azul);
 		add(Vista.btnPapel);
 		Vista.btnPapel.setBounds(215,715,60,50);
-		Vista.btnPapel.setBackground(colorBoton);
+		Vista.btnPapel.setBackground(azul);
 		add(Vista.btnTijera);
 		Vista.btnTijera.setBounds(405,715,60,50);
-		Vista.btnTijera.setBackground(colorBoton);
+		Vista.btnTijera.setBackground(azul);
 		add(Vista.btnJugar);
-		Vista.btnJugar.setBounds(25,625,550,50);
-		Vista.btnJugar.setBackground(colorBoton);
+		Vista.btnJugar.setBounds(25,570,550,50);
+		Vista.btnJugar.setBackground(azul);
+		add(Vista.btnRetirarse);
+		Vista.btnRetirarse.setBounds(25,625,550,50);
+		Vista.btnRetirarse.setBackground(azul);
+		
+		Vista.lblResultado.setForeground(rojo);
+		Vista.lblResultado.setFont(fuenteResultado);
 
 		// Establecer el método de trabajo con imágenes
 		herramienta = getToolkit();
@@ -70,7 +86,7 @@ public class Juego extends Frame implements ActionListener, WindowListener
 	{
 		// Creamos la fuente
 		g.setFont(fuenteTitulo);
-		g.setColor(colorTitulo);
+		g.setColor(azulMarino);
 		g.drawString("PIEDRA PAPEL O TIJERAS", 85, 80);
 
 		g.fillRect(20, 680, 185, 108);
@@ -82,93 +98,205 @@ public class Juego extends Frame implements ActionListener, WindowListener
 		g.drawImage(papel,290,685,this);
 		g.drawImage(tijera,480,685,this);
 
-	}
-	public void eleccionContrincante(Graphics g)
-	{
-		// Dibujar la imagen
-		g.drawImage(piedra,100,685,this);
+		if(Vista.lblEleccionContrincante.getText().equals("PIEDRA"))
+		{
+			g.drawImage(piedra,250,220,this);
+			g.drawImage(piedra,370,360,this);
+		}
+		else if(Vista.lblEleccionContrincante.getText().equals("PAPEL"))
+		{
+			g.drawImage(papel,250,220,this);
+			g.drawImage(papel,370,360,this);
+
+		}
+		else if(Vista.lblEleccionContrincante.getText().equals("TIJERA"))
+		{
+			g.drawImage(tijera,250,220,this);
+			g.drawImage(tijera,370,360,this);
+
+		}
+		if(jugando && Vista.txtOpcionElegida.getText().equals("PIEDRA"))
+		{
+			g.drawImage(piedra,125,360,this);
+		}
+		else if(jugando && Vista.txtOpcionElegida.getText().equals("PAPEL"))
+		{
+			g.drawImage(papel,125,360,this);
+		}
+		else if(jugando && Vista.txtOpcionElegida.getText().equals("TIJERA"))
+		{
+			g.drawImage(tijera,125,360,this);
+		}
+
 	}
 
 	public void actionPerformed(ActionEvent evento) 
 	{
 		if(evento.getSource().equals(Vista.btnPiedra)) 
 		{
+			new Sonido("boton");
 			Vista.txtOpcionElegida.setText("PIEDRA");
 		}
 		else if(evento.getSource().equals(Vista.btnPapel)) 
 		{
+			new Sonido("boton");
 			Vista.txtOpcionElegida.setText("PAPEL");
 		}
 		else if(evento.getSource().equals(Vista.btnTijera)) 
 		{
+			new Sonido("boton");
 			Vista.txtOpcionElegida.setText("TIJERA");
 		}
 		else if(evento.getSource().equals(Vista.btnJugar)) 
 		{
-			
+			jugando = true;
+			Vista.lblContrincante.setFont(fuenteNombres);
+			add(Vista.lblContrincante);
+			Vista.lblContrincante.setBounds(358,460,130,30);
+			Vista.lblUsuario.setFont(fuenteNombres);
+			add(Vista.lblUsuario);
+			Vista.lblUsuario.setBounds(130,460,130,30);
+			Vista.lblUsuario.setText(Vista.txtNombreJugador.getText());
 			Vista.lblEleccionContrincanteEnunciado.setFont(fuenteTexto);
 			add(Vista.lblEleccionContrincanteEnunciado);
-			Vista.lblEleccionContrincanteEnunciado.setBounds(100,170,450,30);
+			Vista.lblEleccionContrincanteEnunciado.setBounds(100,130,450,30);
 			Vista.lblEleccionContrincante.setFont(fuenteTexto);
 			add(Vista.lblEleccionContrincante);
-			Vista.lblEleccionContrincante.setBounds(100,250,450,30);
+			Vista.lblEleccionContrincante.setBounds(250,170,100,30);
 			Vista.lblEleccionContrincante.setText(IA.numeroAleatorio());
-			
+			Vista.lblVersus.setFont(fuenteTexto);
+			add(Vista.lblVersus);
+			Vista.lblVersus.setBounds(265,390,70,50);
+			Vista.lblVersus.setFont(fuenteVersus);
+			Vista.lblVersus.setForeground(rojo);
+
+			ronda = Integer.parseInt(Vista.txtRonda.getText());
+			ronda = ronda + 1;
+			new Sonido("ronda");
+			Vista.txtRonda.setText(Integer.toString(ronda));
+
 			// EVALUACIÓN DE LAS POSIBLES OPCIONES
-			
+
 			if (Vista.lblEleccionContrincante.getText().equals(Vista.txtOpcionElegida.getText()))
 			{
 				Vista.lblResultado.setFont(fuenteTexto);
 				add(Vista.lblResultado);
 				Vista.lblResultado.setText("EMPATE");
-				Vista.lblResultado.setBounds(100,350,450,30);
+				Vista.lblResultado.setBounds(250,530,200,30);
+				new Sonido("empatar");
 			}
 			else if (Vista.lblEleccionContrincante.getText().equals("PIEDRA") && Vista.txtOpcionElegida.getText().equals("PAPEL"))
 			{
 				Vista.lblResultado.setFont(fuenteTexto);
 				add(Vista.lblResultado);
-				Vista.lblResultado.setText("HAS GANADO");
-				Vista.lblResultado.setBounds(100,350,450,30);
+				Vista.lblResultado.setText("¡HAS GANADO!");
+				Vista.lblResultado.setBounds(205,530,200,30);
+				new Sonido("ganar");
+				puntuacion = Integer.parseInt(Vista.txtPuntuacion.getText());
+				puntuacion = puntuacion + 1;
+				Vista.txtPuntuacion.setText(Integer.toString(puntuacion));
 			}
 			else if (Vista.lblEleccionContrincante.getText().equals("PAPEL") && Vista.txtOpcionElegida.getText().equals("PIEDRA"))
 			{
 				Vista.lblResultado.setFont(fuenteTexto);
 				add(Vista.lblResultado);
-				Vista.lblResultado.setText("HAS PERDIDO");
-				Vista.lblResultado.setBounds(100,350,450,30);
+				Vista.lblResultado.setText("¡HAS PERDIDO!");
+				Vista.lblResultado.setBounds(205,530,200,30);
+				new Sonido("perder");
+				puntuacion = Integer.parseInt(Vista.txtPuntuacion.getText());
+				puntuacion = puntuacion - 1;
+				Vista.txtPuntuacion.setText(Integer.toString(puntuacion));
 			}
 			else if (Vista.lblEleccionContrincante.getText().equals("PIEDRA") && Vista.txtOpcionElegida.getText().equals("TIJERA"))
 			{
 				Vista.lblResultado.setFont(fuenteTexto);
 				add(Vista.lblResultado);
-				Vista.lblResultado.setText("HAS PERDIDO");
-				Vista.lblResultado.setBounds(100,350,450,30);
+				Vista.lblResultado.setText("¡HAS PERDIDO!");
+				Vista.lblResultado.setBounds(205,530,200,30);
+				new Sonido("perder");
+				puntuacion = Integer.parseInt(Vista.txtPuntuacion.getText());
+				puntuacion = puntuacion - 1;
+				Vista.txtPuntuacion.setText(Integer.toString(puntuacion));;
 			}
 			else if (Vista.lblEleccionContrincante.getText().equals("TIJERA") && Vista.txtOpcionElegida.getText().equals("PIEDRA"))
 			{
 				Vista.lblResultado.setFont(fuenteTexto);
 				add(Vista.lblResultado);
-				Vista.lblResultado.setText("HAS GANADO");
-				Vista.lblResultado.setBounds(100,350,450,30);
+				Vista.lblResultado.setText("¡HAS GANADO!");
+				Vista.lblResultado.setBounds(205,530,200,30);
+				new Sonido("ganar");
+				puntuacion = Integer.parseInt(Vista.txtPuntuacion.getText());
+				puntuacion = puntuacion + 1;
+				Vista.txtPuntuacion.setText(Integer.toString(puntuacion));
 			}
 			else if (Vista.lblEleccionContrincante.getText().equals("TIJERA") && Vista.txtOpcionElegida.getText().equals("PAPEL"))
 			{
 				Vista.lblResultado.setFont(fuenteTexto);
 				add(Vista.lblResultado);
-				Vista.lblResultado.setText("HAS PERDIDO");
-				Vista.lblResultado.setBounds(100,350,450,30);
+				Vista.lblResultado.setText("¡HAS PERDIDO!");
+				Vista.lblResultado.setBounds(205,530,200,30);
+				new Sonido("perder");
+				puntuacion = Integer.parseInt(Vista.txtPuntuacion.getText());
+				puntuacion = puntuacion - 1;
+				Vista.txtPuntuacion.setText(Integer.toString(puntuacion));
 			}
 			else if (Vista.lblEleccionContrincante.getText().equals("PAPEL") && Vista.txtOpcionElegida.getText().equals("TIJERA"))
 			{
 				Vista.lblResultado.setFont(fuenteTexto);
 				add(Vista.lblResultado);
-				Vista.lblResultado.setText("HAS GANADO");
-				Vista.lblResultado.setBounds(100,350,450,30);
+				Vista.lblResultado.setText("¡HAS GANADO!");
+				Vista.lblResultado.setBounds(205,530,200,30);
+				new Sonido("ganar");
+				puntuacion = Integer.parseInt(Vista.txtPuntuacion.getText());
+				puntuacion = puntuacion + 1;
+				Vista.txtPuntuacion.setText(Integer.toString(puntuacion));
 			}
 		}
-		
+		else if(evento.getSource().equals(Vista.btnRetirarse)) 
+		{	
+			new Sonido("retirarse");
+			Vista.menu.add(Vista.lblMensaje);
+			
+			try
+			{
+				Modelo.ConexionBD();
+				Modelo.sentencia = "INSERT INTO usuarios (nombreUsuario,puntuacionUsuario) VALUES ('"+Vista.txtNombreJugador.getText()+"',"+puntuacion+")";
+				Modelo.statement.executeUpdate(Modelo.sentencia);
+			}
+
+			catch (SQLException sqle)
+			{
+				System.out.println("Error 2-"+sqle.getMessage());
+			}
+
+			finally
+			{
+				try
+				{
+					if(Modelo.connection!=null)
+					{
+						Modelo.connection.close();
+					}
+				}
+				catch (SQLException e)
+				{
+					System.out.println("Error 3-"+e.getMessage());
+				}
+			}
+
+			jugando = false;
+
+			if(isActive())
+			{
+				setVisible(false);
+				Vista.informacion.setVisible(false);
+				Vista.menu.setVisible(true);
+			}
+		}
+
+		repaint();
 	}
-	
+
 	public void windowClosing(WindowEvent e)
 	{
 		if(isActive())

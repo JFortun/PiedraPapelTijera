@@ -21,17 +21,22 @@ public class Vista extends JFrame
 	static Frame informacion = new Frame("Información");
 
 	// Creo los elementos de la ventana del menú
-	static JButton btnMenuJugar = new JButton("Jugar");
-	static JButton btnMenuTOP = new JButton("TOP Jugadores");
-	static JButton btnMenuAyuda = new JButton("Ayuda");
+	static JButton btnMenuJugar = new JButton("JUGAR");
+	static JButton btnMenuTOP = new JButton("CLASIFICACIÓN");
+	static JButton btnMenuAyuda = new JButton("AYUDA");
+	static Label lblMensaje = new Label("Para volver a jugar, reinicia el juego.");
 	
 	// Creo los elementos de la ventana del juego
 	static Button btnPiedra = new Button("PIEDRA");
 	static Button btnPapel = new Button("PAPEL");
 	static Button btnTijera = new Button("TIJERA");
 	static Button btnJugar = new Button("JUGAR");
+	static Button btnRetirarse = new Button("RETIRARSE");
+	static Label lblContrincante = new Label("CONTRINCANTE");
+	static Label lblUsuario = new Label("USUARIO");
 	static Label lblEleccionContrincanteEnunciado = new Label("TU CONTRINCANTE HA ELEGIDO");
 	static Label lblEleccionContrincante = new Label("ELEMENTO");
+	static Label lblVersus = new Label("VS");
 	static Label lblResultado = new Label("RESULTADO");
 
 
@@ -46,10 +51,11 @@ public class Vista extends JFrame
 	static Label lblJugador = new Label("NOMBRE JUGADOR: ");
 	static Label lblOpcionElegida = new Label("OPCIÓN ELEGIDA: ");
 	static Label lblPuntuacion = new Label("PUNTUACIÓN: ");
-
+	static Label lblRonda = new Label("RONDA: ");
 	static TextField txtNombreJugador = new TextField(20);
 	static TextField txtOpcionElegida = new TextField(20);
 	static TextField txtPuntuacion = new TextField(20);
+	static TextField txtRonda = new TextField(20);
 	
 	// Creo los elementos de la ventana de la clasificación
 	static JLabel lblclasificacion = new JLabel("Ésta es la clasificación de jugadores");

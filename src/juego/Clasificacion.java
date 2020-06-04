@@ -12,7 +12,10 @@ import javax.swing.JFrame;
 public class Clasificacion extends JFrame implements ActionListener, WindowListener
 {
 	private static final long serialVersionUID = 1L;
-	Color color = new Color(204, 230, 255);
+	
+	Color color = new Color(204,230,255);
+	Color Azul = new Color(179,255,255);
+	
 	
 	public static void altaUsuario(String nombreUsuario)
 	{
@@ -35,26 +38,26 @@ public class Clasificacion extends JFrame implements ActionListener, WindowListe
 		Vista.clasificacion.setLocationRelativeTo(null);
 		Vista.clasificacion.setVisible(true);
 		Vista.clasificacion.getContentPane().setBackground(color);
+		Vista.taClasificacion.setBackground(Azul);
 
 		try	//Sentencia para recopilar los datos e introducirlos en el text area
 		{
 			Modelo.ConexionBD();
-			Modelo.sentencia = "SELECT * FROM usuarios";
+			Modelo.sentencia = "SELECT * FROM usuarios ORDER BY puntuacionUsuario DESC";
 			Modelo.rs = Modelo.statement.executeQuery(Modelo.sentencia);
 			Vista.taClasificacion.setText("");
 			while(Modelo.rs.next())
 			{
 				if(Vista.taClasificacion.getText().length()==0)
 				{
-					Vista.taClasificacion.setText(Modelo.rs.getString("nombreUsuario")+
-							" --- "+Modelo.rs.getInt("puntuacionUsuario"));
+					Vista.taClasificacion.setText(" Jugador: " + Modelo.rs.getString("nombreUsuario")+
+							"        Puntos: "+ Modelo.rs.getInt("puntuacionUsuario"));
 				}
 				else
 				{
 					Vista.taClasificacion.setText(Vista.taClasificacion.getText() + "\n" +
-							Modelo.rs.getString("nombreUsuario")+
-							" --- "+Modelo.rs.getInt("puntuacionUsuario")+
-							" Puntos");
+							" Jugador: " + Modelo.rs.getString("nombreUsuario")+
+							"        Puntos: "+ Modelo.rs.getInt("puntuacionUsuario"));
 				}
 			}
 		}
@@ -83,6 +86,7 @@ public class Clasificacion extends JFrame implements ActionListener, WindowListe
 		// Botón volver de Jugador
 		if(evento.getSource().equals(Vista.btnClasificacionVolver)) 
 		{
+			new Sonido("boton");
 			Vista.clasificacion.setVisible(false);
 			Vista.menu.setVisible(true);
 		}

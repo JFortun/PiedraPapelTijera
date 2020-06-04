@@ -12,7 +12,7 @@ public class Informacion extends Frame
 	Informacion()
 	{
 		Vista.informacion.setLayout(null);
-		Vista.informacion.setSize(400, 300);
+		Vista.informacion.setSize(410, 320);
 		Vista.informacion.setResizable(false);
 		
 		Vista.informacion.add(Vista.lblJugador);
@@ -21,6 +21,8 @@ public class Informacion extends Frame
 		Vista.lblOpcionElegida.setBounds(30,120,120,25);
 		Vista.informacion.add(Vista.lblPuntuacion);
 		Vista.lblPuntuacion.setBounds(30,190,120,25);
+		Vista.informacion.add(Vista.lblRonda);
+		Vista.lblRonda.setBounds(30,260,120,25);
 		
 		Vista.informacion.add(Vista.txtNombreJugador);
 		Vista.txtNombreJugador.setBounds(180,50,200,25);
@@ -32,6 +34,10 @@ public class Informacion extends Frame
 		Vista.txtPuntuacion.setBounds(180,190,200,25);
 		Vista.txtPuntuacion.setEditable(false);
 		Vista.txtPuntuacion.setText("0");
+		Vista.informacion.add(Vista.txtRonda);
+		Vista.txtRonda.setBounds(180,260,200,25);
+		Vista.txtRonda.setEditable(false);
+		Vista.txtRonda.setText("0");
 		
 		Vista.informacion.setLocation(100,200);
 		Vista.informacion.setVisible(true);
