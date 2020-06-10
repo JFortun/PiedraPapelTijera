@@ -24,7 +24,6 @@ public class Vista extends JFrame
 	static JButton btnMenuJugar = new JButton("JUGAR");
 	static JButton btnMenuTOP = new JButton("CLASIFICACIÓN");
 	static JButton btnMenuAyuda = new JButton("AYUDA");
-	static Label lblMensaje = new Label("Para volver a jugar, reinicia el juego.");
 	
 	// Creo los elementos de la ventana del juego
 	static Button btnPiedra = new Button("PIEDRA");
@@ -38,6 +37,8 @@ public class Vista extends JFrame
 	static Label lblEleccionContrincante = new Label("ELEMENTO");
 	static Label lblVersus = new Label("VS");
 	static Label lblResultado = new Label("RESULTADO");
+	static TextField txtNombreJugadorJuego = new TextField(20);
+
 
 
 	// Creo los elementos de la ventana jugador

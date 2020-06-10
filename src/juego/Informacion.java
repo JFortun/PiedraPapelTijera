@@ -24,9 +24,10 @@ public class Informacion extends Frame
 		Vista.informacion.add(Vista.lblRonda);
 		Vista.lblRonda.setBounds(30,260,120,25);
 		
-		Vista.informacion.add(Vista.txtNombreJugador);
-		Vista.txtNombreJugador.setBounds(180,50,200,25);
-		Vista.txtNombreJugador.setEditable(false);
+		Vista.informacion.add(Vista.txtNombreJugadorJuego);
+		Vista.txtNombreJugadorJuego.setBounds(180,50,200,25);
+		Vista.txtNombreJugadorJuego.setEditable(false);
+		Vista.txtNombreJugadorJuego.setText(Vista.txtNombreJugador.getText());
 		Vista.informacion.add(Vista.txtOpcionElegida);
 		Vista.txtOpcionElegida.setBounds(180,120,200,25);
 		Vista.txtOpcionElegida.setEditable(false);

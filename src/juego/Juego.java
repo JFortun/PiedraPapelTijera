@@ -66,6 +66,7 @@ public class Juego extends Frame implements ActionListener, WindowListener
 		add(Vista.btnJugar);
 		Vista.btnJugar.setBounds(25,570,550,50);
 		Vista.btnJugar.setBackground(azul);
+		//Vista.btnJugar.setEnabled(false);
 		add(Vista.btnRetirarse);
 		Vista.btnRetirarse.setBounds(25,625,550,50);
 		Vista.btnRetirarse.setBackground(azul);
@@ -136,16 +137,19 @@ public class Juego extends Frame implements ActionListener, WindowListener
 		{
 			new Sonido("boton");
 			Vista.txtOpcionElegida.setText("PIEDRA");
+			Vista.btnJugar.setEnabled(true);
 		}
 		else if(evento.getSource().equals(Vista.btnPapel)) 
 		{
 			new Sonido("boton");
 			Vista.txtOpcionElegida.setText("PAPEL");
+			Vista.btnJugar.setEnabled(true);
 		}
 		else if(evento.getSource().equals(Vista.btnTijera)) 
 		{
 			new Sonido("boton");
 			Vista.txtOpcionElegida.setText("TIJERA");
+			Vista.btnJugar.setEnabled(true);
 		}
 		else if(evento.getSource().equals(Vista.btnJugar)) 
 		{
@@ -255,7 +259,6 @@ public class Juego extends Frame implements ActionListener, WindowListener
 		else if(evento.getSource().equals(Vista.btnRetirarse)) 
 		{	
 			new Sonido("retirarse");
-			Vista.menu.add(Vista.lblMensaje);
 			
 			try
 			{
